@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <!--当前工程的坐标-->
+  <groupId>com.qf</groupId>
+  <artifactId>my-test</artifactId>
+  <version>1.0-SNAPSHOT</version>
+  <!--当前工程的打包方式-->
+  <packaging>war</packaging>
+  <!--当前工程的url信息-->
+  <name>my-test Maven Webapp</name>
+  <url>http://www.example.com</url>
+  <!--当前工程的属性值，以来jar包的版本放在这里统一管理-->
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <maven.compiler.source>1.7</maven.compiler.source>
+    <maven.compiler.target>1.7</maven.compiler.target>
+    <junit.version>4.12</junit.version>
+  </properties>
+
+  <dependencies>
+
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>${junit.version}</version>
+      <!--jar的范围在test，这个jat旨在src/test里生效，打包成war包时，不会讲这个包导入其中-->
+      <scope>test</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>se.jiderhamn.classloader-leak-prevention</groupId>
+      <artifactId>classloader-leak-prevention-servlet</artifactId>
+      <version>2.1.0</version>
+    </dependency>
+
+  </dependencies>
+
+  <build>
+    <finalName>my-test</finalName>
+
+    <plugins>
+      <plugin>
+        <groupId>org.apache.tomcat.maven</groupId>
+        <artifactId>tomcat7-maven-plugin</artifactId>
+        <version>2.2</version>
+        <configuration>
+          <!--远程Tomcat的ip地址和端口号，注意远程Tomcat需要启动-->
+          <url>http://47.98.170.35:8037/manager/text</url>
+          <username>admin</username>
+          <password>admin123</password>
+          <update>true</update>
+          <!--上下文，也就是访问这个tomcat7的路径-->
+          <path>/my</path>
+        </configuration>
+      </plugin>
+    </plugins>
+
+  </build>
+</project>
